@@ -1,0 +1,9 @@
+## Visual Studio / .NET
+bin/
+obj/
+*.user
+.vs/
+*.suo
+
+## Connection strings / secrets
+App.config

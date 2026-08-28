@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ContactsBusinessLayer/ContactsBusinessLayer.csproj" />
+  <Project Path="ContactsDataAccessLayer/ContactsDataAccessLayer.csproj" />
+  <Project Path="ContactsManagementSystemPresentationLayer.csproj" />
+</Solution>
