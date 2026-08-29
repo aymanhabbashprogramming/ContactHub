@@ -104,5 +104,13 @@ namespace ContactsBusinessLayer
             return clsCountryData.GetAllCountries();
 
         }
+        public static bool DeleteCountry(int ID)
+        {
+            return clsCountryData.DeleteCountry(ID);
+        }
+        public static bool isCountryExist(int ID)
+        {
+            return clsCountryData.IsCountryExist(ID);
+        }
     }
 }
