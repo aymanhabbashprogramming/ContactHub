@@ -170,30 +170,47 @@ namespace ContactsManagementSystemPresentationLayer
             }
 
         }
-        static void testUpdateCountry(int ID)
+        static void ListCountries()
+        {
+
+            DataTable dataTable = clsCountry.GetAllCountries();
+
+            Console.WriteLine("Coutries Data:");
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                Console.WriteLine($"{row["CountryID"]},  {row["CountryName"]}");
+            }
+
+        }
+        static void testDeleteCountry(int ID)
 
         {
-            clsCountry Country1 = clsCountry.Find(ID);
 
-            if (Country1 != null)
-            {
-                //update whatever info you want
-                Country1.CountryName = "Lebanon2";
+            if (clsCountry.isCountryExist(ID))
 
+                if (clsCountry.DeleteCountry(ID))
 
-                if (Country1.Save())
-                {
+                    Console.WriteLine("Country Deleted Successfully.");
+                else
+                    Console.WriteLine("Faild to delete Country.");
 
-                    Console.WriteLine("Country updated Successfully ");
-                }
-
-            }
             else
-            {
-                Console.WriteLine("Country is you want to update is Not found!");
-            }
-        }
+                Console.WriteLine("Faild to delete: The Country with id = " + ID + " is not found");
 
+        }
+        static void testIsCountryExistByName(string CountryName)
+
+        {
+
+            if (clsCountry.isCountryExist(CountryName))
+
+                Console.WriteLine("Yes, Country is there.");
+
+            else
+                Console.WriteLine("No, Country Is not there.");
+
+        }
         static void Main(string[] args)
         {
             // TEST CONTACT FUNCTIONS
@@ -219,8 +236,9 @@ namespace ContactsManagementSystemPresentationLayer
             //testFindCountryByID (3);
             //testFindCountryByName("Canada");
             //testAddNewCountry();
-            testUpdateCountry(7);
-
+            //ListCountries();
+            //testDeleteCountry(7);
+            testIsCountryExistByName("canada");
         }
     }
 }
