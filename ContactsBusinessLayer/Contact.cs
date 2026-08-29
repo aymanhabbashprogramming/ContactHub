@@ -100,18 +100,15 @@ namespace ContactsBusinessLayer
            bool result = clsContactDataAccess.UpdateContact(contactInfo);
 
             return result;
-        }   
-       
+        }        
         public static DataTable GetAllContacts()
         {
             return clsContactDataAccess.GetAllContacts();
         }
-
         public static bool DeleteContact(int ID)
         {
             return clsContactDataAccess.DeleteContact(ID);
-        }
-        
+        }  
         public bool Save()
         {
             switch (this.Mode)
@@ -135,6 +132,10 @@ namespace ContactsBusinessLayer
             return false;
         }
 
+        public static bool isContactExist(int ID)
+        {
+            return clsContactDataAccess.IsConactExist(ID);
+        }
 
     }
 }

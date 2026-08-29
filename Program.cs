@@ -82,15 +82,21 @@ namespace ContactsManagementSystemPresentationLayer
         }
         static void testDeleteContact(int id)
         {
-            bool result = clsContact.DeleteContact(id);
 
-            if (result)
+            if (clsContact.isContactExist(id))
             {
-                Console.WriteLine("Contact Deleted Successfully with id = " + id);
+                if (clsContact.DeleteContact(id))
+                {
+                    Console.WriteLine($"Contact with ID [{id}] deleted successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to delete contact with ID [{id}].");
+                }
             }
             else
             {
-                Console.WriteLine("Failed to Delete Contact with id = " + id);
+                Console.WriteLine($"Contact with ID [{id}] does NOT exist.");
             }
 
         }
@@ -112,7 +118,12 @@ namespace ContactsManagementSystemPresentationLayer
             }
 
             Console.WriteLine("\n=====================================\n");
+        }       
+        static bool testIsContactExist(int ID)
+        {
+            return (clsContact.isContactExist(ID));
         }
+
         static void Main(string[] args)
         {
 
@@ -120,7 +131,18 @@ namespace ContactsManagementSystemPresentationLayer
             //testAddNewContact();
             //testUpdateContact(12);
             //testDeleteContact(11);
-            testListContacts();
+            //testListContacts();
+
+            /*if (testIsContactExist(5))
+            {
+                Console.WriteLine("Contact with ID [5] exists.");
+            }
+            else
+            {
+                Console.WriteLine("Contact with ID [5] does NOT exist.");
+            }*/
+
+
         }
     }
 }
