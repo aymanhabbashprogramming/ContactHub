@@ -1,6 +1,7 @@
 ﻿using ContactsDataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.PerformanceData;
 using System.Linq;
 using System.Text;
@@ -98,6 +99,10 @@ namespace ContactsBusinessLayer
 
             return false;
         }
+        public static DataTable GetAllCountries()
+        {
+            return clsCountryData.GetAllCountries();
 
+        }
     }
 }
