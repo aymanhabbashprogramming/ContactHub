@@ -80,13 +80,47 @@ namespace ContactsManagementSystemPresentationLayer
                 Console.WriteLine($"Contact with ID {id} not found.");
             }
         }
+        static void testDeleteContact(int id)
+        {
+            bool result = clsContact.DeleteContact(id);
 
+            if (result)
+            {
+                Console.WriteLine("Contact Deleted Successfully with id = " + id);
+            }
+            else
+            {
+                Console.WriteLine("Failed to Delete Contact with id = " + id);
+            }
+
+        }
+        static void PrintRow(DataRow row)
+        {
+
+            Console.WriteLine($"{row["ContactID"]}] {row["FirstName"]}" +
+                              $"{row["LastName"]}");
+        }
+        static void testListContacts()
+        {
+            DataTable dataTable = clsContact.GetAllContacts();
+
+            Console.WriteLine("\n=========== Contacts List ===========\n");
+            
+            foreach (DataRow row in dataTable.Rows)
+            {
+                PrintRow(row);
+            }
+
+            Console.WriteLine("\n=====================================\n");
+        }
         static void Main(string[] args)
         {
 
             //testFindContact(7);
             //testAddNewContact();
             //testUpdateContact(12);
+            //testDeleteContact(11);
+            testListContacts();
         }
     }
 }
