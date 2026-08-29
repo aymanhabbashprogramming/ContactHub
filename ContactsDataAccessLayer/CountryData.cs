@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ContactsDataAccessLayer
 {
-    internal class CountryData
+    internal class clsCountryData
     {
+
     }
 }
