@@ -35,7 +35,7 @@ namespace ContactsBusinessLayer
 
             this.Mode = enMode.AddNew;
         }
-        public clsContact(stContactInfo contactInfo) 
+        private clsContact(stContactInfo contactInfo) 
         { 
             this.ID = contactInfo.ID;
             this.FirstName = contactInfo.FirstName;
