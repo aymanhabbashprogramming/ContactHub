@@ -16,7 +16,7 @@ namespace ContactsBusinessLayer
         public int ID {  get; set; }
         public string CountryName { get; set; }
 
-        clsCountry()
+        public clsCountry()
         {
             ID = -1;
             CountryName = "";
@@ -54,7 +54,42 @@ namespace ContactsBusinessLayer
                 return null;
 
         }
+        private bool _AddNewCountry()
+        {
+            //call DataAccess Layer 
 
+            this.ID = clsCountryData.AddNewCountry(this.CountryName);
+
+            return (this.ID != -1);
+        }
+
+        public bool Save()
+        {
+
+
+            switch (Mode)
+            {
+                case enMode.AddNew:
+                    if (_AddNewCountry())
+                    {
+
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+               
+
+            }
+
+
+
+
+            return false;
+        }
 
 
     }
