@@ -257,7 +257,6 @@ namespace ContactsManagementSystemPresentationLayer
             //testDeleteCountry(7);
             //testIsCountryExistByName("canada");
             //testUpdateCountry(9);
-            ListCountries();
         }
     }
 }
