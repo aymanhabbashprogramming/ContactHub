@@ -82,6 +82,25 @@ namespace ContactsBusinessLayer
 
             return (this.ID != -1);
         }
+      
+        private bool _UpdateContact()
+        {
+            stContactInfo contactInfo = new stContactInfo();
+
+            contactInfo.ID = this.ID;
+            contactInfo.FirstName = this.FirstName;
+            contactInfo.LastName = this.LastName;
+            contactInfo.Email = this.Email;
+            contactInfo.Phone = this.Phone;
+            contactInfo.Address = this.Address;
+            contactInfo.DateOfBirth = this.DateOfBirth;
+            contactInfo.CountryID = this.CountryID;
+            contactInfo.ImagePath = this.ImagePath;
+
+           bool result = clsContactDataAccess.UpdateContact(contactInfo);
+
+            return result;
+        }   
         public bool Save()
         {
             switch (this.Mode)
@@ -98,10 +117,13 @@ namespace ContactsBusinessLayer
                         return false;
                     }
 
-               // case enMode.Update:
+                case enMode.Update:
+                    return _UpdateContact();
             }
 
             return false;
         }
+
+
     }
 }

@@ -31,7 +31,6 @@ namespace ContactsManagementSystemPresentationLayer
             }
 
         }
-
         static void testAddNewContact()
         {
             clsContact Contact1 = new clsContact();
@@ -52,12 +51,42 @@ namespace ContactsManagementSystemPresentationLayer
 
 
         }
+        static void testUpdateContact(int id)
+        {
+            clsContact Contact1 = clsContact.Find(id);
+
+            if (Contact1 != null)
+            {
+                Contact1.FirstName = "Rami";
+                Contact1.LastName = "Kassab";
+                Contact1.Email = "sami.kassab@gmail.com";
+                Contact1.Phone = "05312345678";
+                Contact1.Address = "Istanbul, Turkey";
+                Contact1.DateOfBirth = new DateTime(1995, 5, 20);
+                Contact1.CountryID = 1;
+                Contact1.ImagePath = "";
+
+                if (Contact1.Save())
+                {
+                    Console.WriteLine("Contact Updated Successfully with id = " + Contact1.ID);
+                }
+                else
+                {
+                    Console.WriteLine("Failed to update contact.");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Contact with ID {id} not found.");
+            }
+        }
 
         static void Main(string[] args)
         {
 
             //testFindContact(7);
-            testAddNewContact();
+            //testAddNewContact();
+            //testUpdateContact(12);
         }
     }
 }
