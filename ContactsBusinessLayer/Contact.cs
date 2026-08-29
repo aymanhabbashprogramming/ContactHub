@@ -3,11 +3,11 @@ using System;
 using static ContactsDataAccessLayer.clsContactDataAccess;
 
 namespace ContactsBusinessLayer
-{   
+{
     public class clsContact
     {
 
-        public enum enMode { AddNew = 0 , Update = 1 }
+        public enum enMode { AddNew = 0, Update = 1 }
         public enMode Mode = enMode.AddNew;
 
 
@@ -35,8 +35,8 @@ namespace ContactsBusinessLayer
 
             this.Mode = enMode.AddNew;
         }
-        private clsContact(stContactInfo contactInfo) 
-        { 
+        private clsContact(stContactInfo contactInfo)
+        {
             this.ID = contactInfo.ID;
             this.FirstName = contactInfo.FirstName;
             this.LastName = contactInfo.LastName;
@@ -52,7 +52,7 @@ namespace ContactsBusinessLayer
         public static clsContact Find(int ID)
         {
             stContactInfo contactInfo = new stContactInfo();
-            contactInfo.ID= ID;
+            contactInfo.ID = ID;
 
             if (clsContactDataAccess.GetContactInfoByID(ref contactInfo))
             {
@@ -62,6 +62,46 @@ namespace ContactsBusinessLayer
             {
                 return null;
             }
+        }
+        private bool _AddNewContact()
+        {
+
+            stContactInfo contactInfo = new stContactInfo();
+
+            contactInfo.ID = -1;
+            contactInfo.FirstName = this.FirstName;
+            contactInfo.LastName = this.LastName;
+            contactInfo.Email = this.Email;
+            contactInfo.Phone = this.Phone;
+            contactInfo.Address = this.Address;
+            contactInfo.DateOfBirth = this.DateOfBirth;
+            contactInfo.CountryID = this.CountryID;
+            contactInfo.ImagePath = this.ImagePath;
+
+            this.ID = clsContactDataAccess.AddNewContact(contactInfo);
+
+            return (this.ID != -1);
+        }
+        public bool Save()
+        {
+            switch (this.Mode)
+            {
+
+                case enMode.AddNew:
+                    if (_AddNewContact())
+                    {
+                        this.Mode = enMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+               // case enMode.Update:
+            }
+
+            return false;
         }
     }
 }
