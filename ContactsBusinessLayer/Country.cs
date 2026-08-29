@@ -62,7 +62,13 @@ namespace ContactsBusinessLayer
 
             return (this.ID != -1);
         }
+        private bool _UpdateContact()
+        {
+            //call DataAccess Layer 
 
+            return clsCountryData.UpdateCountry(this.ID, this.CountryName);
+
+        }
         public bool Save()
         {
 
@@ -81,7 +87,9 @@ namespace ContactsBusinessLayer
                         return false;
                     }
 
-               
+                case enMode.Update:
+
+                    return _UpdateContact();
 
             }
 
@@ -90,7 +98,6 @@ namespace ContactsBusinessLayer
 
             return false;
         }
-
 
     }
 }
