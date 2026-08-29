@@ -199,7 +199,18 @@ namespace ContactsManagementSystemPresentationLayer
                 Console.WriteLine("Faild to delete: The Country with id = " + ID + " is not found");
 
         }
+        static void testIsCountryExistByName(string CountryName)
 
+        {
+
+            if (clsCountry.isCountryExist(CountryName))
+
+                Console.WriteLine("Yes, Country is there.");
+
+            else
+                Console.WriteLine("No, Country Is not there.");
+
+        }
         static void Main(string[] args)
         {
             // TEST CONTACT FUNCTIONS
@@ -226,7 +237,8 @@ namespace ContactsManagementSystemPresentationLayer
             //testFindCountryByName("Canada");
             //testAddNewCountry();
             //ListCountries();
-            testDeleteCountry(7);
+            //testDeleteCountry(7);
+            testIsCountryExistByName("canada");
         }
     }
 }
