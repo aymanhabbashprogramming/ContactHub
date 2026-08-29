@@ -57,7 +57,6 @@ namespace ContactsDataAccessLayer
 
             return isFound;
         }
-
         public static bool GetCountryInfoByName(string CountryName, ref int ID)
         {
             bool isFound = false;
@@ -105,6 +104,49 @@ namespace ContactsDataAccessLayer
             }
 
             return isFound;
+        }
+        public static int AddNewCountry(string CountryName)
+        {
+            //this function will return the new contact id if succeeded and -1 if not.
+            int CountryID = -1;
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = @"INSERT INTO Countries (CountryName)
+                             VALUES (@CountryName);
+                             SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@CountryName", CountryName);
+
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+
+                if (result != null && int.TryParse(result.ToString(), out int insertedID))
+                {
+                    CountryID = insertedID;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                //Console.WriteLine("Error: " + ex.Message);
+
+            }
+
+            finally
+            {
+                connection.Close();
+            }
+
+
+            return CountryID;
         }
 
 
