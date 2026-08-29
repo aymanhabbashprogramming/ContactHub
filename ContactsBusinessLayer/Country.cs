@@ -16,26 +16,35 @@ namespace ContactsBusinessLayer
 
         public int ID {  get; set; }
         public string CountryName { get; set; }
+        public string Code { get; set; }
+        public string PhoneCode { get; set; }
 
         public clsCountry()
         {
             ID = -1;
             CountryName = "";
+            Code = "";
+            PhoneCode = "";
             this.Mode = enMode.AddNew;
         }
-        clsCountry(int  ID,  string CountryName)
+        clsCountry(int  ID,  string CountryName, string Code, string PhoneCode)
         {
             this.ID= ID;
             this.CountryName= CountryName;
+            this.Code= Code;
+            this.PhoneCode= PhoneCode;
             this.Mode= enMode.Update;
         }
         public static clsCountry Find(int ID)
         {
             string CountryName = "";
-            bool isFound = clsCountryData.GetCountryInfoByID(ID,ref CountryName);
+            string Code = "";
+            string PhoneCode = "";
+
+            bool isFound = clsCountryData.GetCountryInfoByID(ID, ref CountryName, ref Code, ref PhoneCode);
             if (isFound)
             {
-                return new clsCountry(ID, CountryName);
+                return new clsCountry(ID, CountryName, Code, PhoneCode);
             }
             else
             {
@@ -44,22 +53,20 @@ namespace ContactsBusinessLayer
         }
         public static clsCountry Find(string CountryName)
         {
-
             int ID = -1;
+            string Code = "";
+            string PhoneCode = "";
 
-
-            if (clsCountryData.GetCountryInfoByName(CountryName, ref ID))
-
-                return new clsCountry(ID, CountryName);
+            if (clsCountryData.GetCountryInfoByName(CountryName, ref ID, ref Code, ref PhoneCode))
+                return new clsCountry(ID, CountryName, Code, PhoneCode);
             else
                 return null;
-
         }
         private bool _AddNewCountry()
         {
             //call DataAccess Layer 
 
-            this.ID = clsCountryData.AddNewCountry(this.CountryName);
+            this.ID = clsCountryData.AddNewCountry(this.CountryName,this.Code,this.PhoneCode);
 
             return (this.ID != -1);
         }
@@ -67,7 +74,7 @@ namespace ContactsBusinessLayer
         {
             //call DataAccess Layer 
 
-            return clsCountryData.UpdateCountry(this.ID, this.CountryName);
+            return clsCountryData.UpdateCountry(this.ID, this.CountryName, this.Code, this.PhoneCode);
 
         }
         public bool Save()

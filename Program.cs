@@ -132,25 +132,21 @@ namespace ContactsManagementSystemPresentationLayer
 
             if (country != null)
             {
-                Console.WriteLine(country.CountryName);
+                Console.WriteLine($"ID: {country.ID}, Name: {country.CountryName}, Code: {country.Code}, PhoneCode: {country.PhoneCode}");
             }
-
             else
             {
                 Console.WriteLine("Country [" + ID + "] Not found!");
             }
         }
         static void testFindCountryByName(string CountryName)
-
         {
             clsCountry Country1 = clsCountry.Find(CountryName);
 
             if (Country1 != null)
             {
-                Console.WriteLine("Country [" + CountryName + "] isFound with ID = " + Country1.ID);
-
+                Console.WriteLine($"Country [{CountryName}] is Found with ID = {Country1.ID}, Code = {Country1.Code}, PhoneCode = {Country1.PhoneCode}");
             }
-
             else
             {
                 Console.WriteLine("Country [" + CountryName + "] Is Not found!");
@@ -161,27 +157,24 @@ namespace ContactsManagementSystemPresentationLayer
             clsCountry Country1 = new clsCountry();
 
             Country1.CountryName = "Lebanon";
-
+            Country1.Code = "LB";
+            Country1.PhoneCode = "961";
 
             if (Country1.Save())
             {
-
                 Console.WriteLine("Country Added Successfully with id=" + Country1.ID);
             }
-
         }
         static void ListCountries()
         {
-
             DataTable dataTable = clsCountry.GetAllCountries();
 
-            Console.WriteLine("Coutries Data:");
+            Console.WriteLine("Countries Data:");
 
             foreach (DataRow row in dataTable.Rows)
             {
-                Console.WriteLine($"{row["CountryID"]},  {row["CountryName"]}");
+                Console.WriteLine($"{row["CountryID"]}, {row["CountryName"]}, Code: {row["Code"]}, PhoneCode: {row["PhoneCode"]}");
             }
-
         }
         static void testDeleteCountry(int ID)
 
@@ -211,6 +204,30 @@ namespace ContactsManagementSystemPresentationLayer
                 Console.WriteLine("No, Country Is not there.");
 
         }
+        static void testUpdateCountry(int ID)
+        {
+            clsCountry country = clsCountry.Find(ID);
+
+            if (country != null)
+            {
+                country.CountryName = "Lebanon Updated";
+                country.Code = "LBN";
+                country.PhoneCode = "961";
+
+                if (country.Save())
+                {
+                    Console.WriteLine("Country Updated Successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to Update Country.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Country Not found!");
+            }
+        }
         static void Main(string[] args)
         {
             // TEST CONTACT FUNCTIONS
@@ -233,12 +250,14 @@ namespace ContactsManagementSystemPresentationLayer
 
             // TEST COUNTRY FUNCTIONS
 
-            //testFindCountryByID (3);
+            //testFindCountryByID(8);
             //testFindCountryByName("Canada");
             //testAddNewCountry();
             //ListCountries();
             //testDeleteCountry(7);
-            testIsCountryExistByName("canada");
+            //testIsCountryExistByName("canada");
+            //testUpdateCountry(9);
+            ListCountries();
         }
     }
 }
