@@ -140,6 +140,22 @@ namespace ContactsManagementSystemPresentationLayer
                 Console.WriteLine("Country [" + ID + "] Not found!");
             }
         }
+        static void testFindCountryByName(string CountryName)
+
+        {
+            clsCountry Country1 = clsCountry.Find(CountryName);
+
+            if (Country1 != null)
+            {
+                Console.WriteLine("Country [" + CountryName + "] isFound with ID = " + Country1.ID);
+
+            }
+
+            else
+            {
+                Console.WriteLine("Country [" + CountryName + "] Is Not found!");
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -163,7 +179,8 @@ namespace ContactsManagementSystemPresentationLayer
 
             // TEST COUNTRY FUNCTIONS
 
-            testFindCountryByID (3);
+            //testFindCountryByID (3);
+            testFindCountryByName("Canada");
 
 
         }
