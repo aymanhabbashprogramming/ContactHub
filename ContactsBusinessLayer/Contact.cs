@@ -1,5 +1,6 @@
 ﻿using ContactsDataAccessLayer;
 using System;
+using System.Data;
 using static ContactsDataAccessLayer.clsContactDataAccess;
 
 namespace ContactsBusinessLayer
@@ -81,8 +82,7 @@ namespace ContactsBusinessLayer
             this.ID = clsContactDataAccess.AddNewContact(contactInfo);
 
             return (this.ID != -1);
-        }
-      
+        } 
         private bool _UpdateContact()
         {
             stContactInfo contactInfo = new stContactInfo();
@@ -101,6 +101,17 @@ namespace ContactsBusinessLayer
 
             return result;
         }   
+       
+        public static DataTable GetAllContacts()
+        {
+            return clsContactDataAccess.GetAllContacts();
+        }
+
+        public static bool DeleteContact(int ID)
+        {
+            return clsContactDataAccess.DeleteContact(ID);
+        }
+        
         public bool Save()
         {
             switch (this.Mode)
