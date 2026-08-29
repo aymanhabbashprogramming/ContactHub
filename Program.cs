@@ -124,8 +124,26 @@ namespace ContactsManagementSystemPresentationLayer
             return (clsContact.isContactExist(ID));
         }
 
+        //------------------------------------------------------------
+
+        static void testFindCountryByID(int ID)
+        {
+            clsCountry country = clsCountry.Find(ID);
+
+            if (country != null)
+            {
+                Console.WriteLine(country.CountryName);
+            }
+
+            else
+            {
+                Console.WriteLine("Country [" + ID + "] Not found!");
+            }
+        }
+
         static void Main(string[] args)
         {
+            // TEST CONTACT FUNCTIONS
 
             //testFindContact(7);
             //testAddNewContact();
@@ -141,6 +159,11 @@ namespace ContactsManagementSystemPresentationLayer
             {
                 Console.WriteLine("Contact with ID [5] does NOT exist.");
             }*/
+
+
+            // TEST COUNTRY FUNCTIONS
+
+            testFindCountryByID (3);
 
 
         }
