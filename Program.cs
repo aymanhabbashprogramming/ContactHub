@@ -156,6 +156,20 @@ namespace ContactsManagementSystemPresentationLayer
                 Console.WriteLine("Country [" + CountryName + "] Is Not found!");
             }
         }
+        static void testAddNewCountry()
+        {
+            clsCountry Country1 = new clsCountry();
+
+            Country1.CountryName = "Lebanon";
+
+
+            if (Country1.Save())
+            {
+
+                Console.WriteLine("Country Added Successfully with id=" + Country1.ID);
+            }
+
+        }
 
         static void Main(string[] args)
         {
@@ -180,8 +194,8 @@ namespace ContactsManagementSystemPresentationLayer
             // TEST COUNTRY FUNCTIONS
 
             //testFindCountryByID (3);
-            testFindCountryByName("Canada");
-
+            //testFindCountryByName("Canada");
+            testAddNewCountry();
 
         }
     }
