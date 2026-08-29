@@ -65,5 +65,57 @@ namespace ContactsDataAccessLayer
             }
             return isFound;
         }
+        public static int AddNewContact(stContactInfo contactInfo)
+        {
+            int insertedID = -1;
+
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+            string query = @"INSERT INTO [Contacts] ([FirstName], [LastName], [Email], [Phone], [Address], [DateOfBirth], [CountryID], [ImagePath]) 
+                             VALUES (@FirstName,@LastName, @Email, @Phone, @Address, @DateOfBirth, @CountryID, @ImagePath);
+                             SELECT SCOPE_IDENTITY();";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@FirstName", contactInfo.FirstName);
+            command.Parameters.AddWithValue("@LastName", contactInfo.LastName);
+            command.Parameters.AddWithValue("@Email", contactInfo.Email);
+            command.Parameters.AddWithValue("@Phone", contactInfo.Phone);
+            command.Parameters.AddWithValue("@Address", contactInfo.Address);
+            command.Parameters.AddWithValue("@DateOfBirth", contactInfo.DateOfBirth);
+            command.Parameters.AddWithValue("@CountryID", contactInfo.CountryID);
+
+            if (string.IsNullOrEmpty(contactInfo.ImagePath))
+            {
+                command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@ImagePath", contactInfo.ImagePath);
+            }
+
+            try
+            {
+                connection.Open();
+
+                object result = command.ExecuteScalar();
+
+
+                if (result != null && int.TryParse(result.ToString(), out int insertedIDResult))
+                {
+                    insertedID = insertedIDResult;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return insertedID;
+        }
+
     }
 }
