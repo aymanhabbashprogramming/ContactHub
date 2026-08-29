@@ -112,5 +112,9 @@ namespace ContactsBusinessLayer
         {
             return clsCountryData.IsCountryExist(ID);
         }
+        public static bool isCountryExist(string CountryName)
+        {
+            return clsCountryData.IsCountryExist(CountryName);
+        }
     }
 }
