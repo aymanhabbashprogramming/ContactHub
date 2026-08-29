@@ -116,6 +116,61 @@ namespace ContactsDataAccessLayer
             }
             return insertedID;
         }
+        public static bool UpdateContact(stContactInfo contactInfo)
+        {
+            SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString);
+
+            string query = @"UPDATE [Contacts]
+                           SET [FirstName] = @FirstName
+                              ,[LastName] = @LastName
+                              ,[Email] = @Email
+                              ,[Phone] = @Phone
+                              ,[Address] = @Address
+                              ,[DateOfBirth] = @DateOfBirth
+                              ,[CountryID] = @CountryID
+                              ,[ImagePath] = @ImagePath
+                         WHERE ContactID = @ContactID";
+
+            SqlCommand command = new SqlCommand(query, connection);
+
+            command.Parameters.AddWithValue("@ContactID", contactInfo.ID);
+            command.Parameters.AddWithValue("@FirstName", contactInfo.FirstName);
+            command.Parameters.AddWithValue("@LastName", contactInfo.LastName);
+            command.Parameters.AddWithValue("@Email", contactInfo.Email);
+            command.Parameters.AddWithValue("@Phone", contactInfo.Phone);
+            command.Parameters.AddWithValue("@Address", contactInfo.Address);
+            command.Parameters.AddWithValue("@DateOfBirth", contactInfo.DateOfBirth);
+            command.Parameters.AddWithValue("@CountryID", contactInfo.CountryID);
+
+            if (string.IsNullOrEmpty(contactInfo.ImagePath))
+            {
+                command.Parameters.AddWithValue("@ImagePath", System.DBNull.Value);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@ImagePath", contactInfo.ImagePath);
+            }
+
+            int rowsAffected = 0;
+            try
+            {
+                connection.Open();
+                rowsAffected = command.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                // Handling error
+                return false;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return (rowsAffected > 0);
+
+        }
 
     }
 }
